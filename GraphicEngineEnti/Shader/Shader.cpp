@@ -22,7 +22,6 @@ bool Shader::init(const char * src, GLenum shaderType)
 	std::string str((std::istreambuf_iterator<char>(file)),
 		std::istreambuf_iterator<char>());
 	const char *c_str = str.c_str();
-
 	glShaderSource(shaderId, 1, &c_str, NULL);
 	glCompileShader(shaderId);
 	GLint vertex_compiled;
@@ -33,9 +32,8 @@ bool Shader::init(const char * src, GLenum shaderType)
 		GLchar message[1024];
 		glGetShaderInfoLog(shaderId, 1024, &log_length, message);
 		std::cout << message << std::endl;
-		return false;
 	}
-		return true;
+		return false;
 }
 
 void Shader::destroy()
