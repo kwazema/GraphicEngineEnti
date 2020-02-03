@@ -18,7 +18,7 @@
   } 
   void JoseModule::update(float elapsed) 
   {
-	  std::cout << "elapsed: " << elapsed << std::endl;
+
   }
 
 JoseModule::JoseModule()

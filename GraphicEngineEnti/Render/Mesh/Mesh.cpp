@@ -27,9 +27,11 @@ bool Mesh::create(
 	//assert(indices.empty());
 	assert(nindices > 0);
 	
-	
-	glGenBuffers(1, &ibId);
-	glBindBuffer(GL_ARRAY_BUFFER, ibId);
+	glGenBuffers(1, &VAO);
+	glGenBuffers(1, &vbId);
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbId);
 	glBufferData(GL_ARRAY_BUFFER, bytes_per_vertex * nvertexs,vertices, GL_STATIC_DRAW);
 
 
@@ -38,13 +40,14 @@ bool Mesh::create(
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * ib.size(), ib.data(), GL_STATIC_DRAW);
 	
-	
+	glBindVertexArray(0);
 
 	return true;
 }
 
 void Mesh::destroy()
 {
+	glDeleteBuffers(1, &VAO);
 	glDeleteBuffers(1, &vbId);
 	glDeleteBuffers(1, &ibId);
 }
@@ -56,8 +59,7 @@ void Mesh::render() const
 
 void Mesh::activate() const
 {
-	glBindBuffer(GL_ARRAY_BUFFER, vbId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibId);
+	glBindVertexArray(VAO);
 }
 
 void Mesh::activateAndRender() const

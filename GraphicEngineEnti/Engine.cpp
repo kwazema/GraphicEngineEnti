@@ -23,10 +23,8 @@ bool Engine::start()
 	WindowGLFW*  window = new WindowGLFW(640, 480, "HELLO WORLD");
 	render = new RenderModule(window);
 
-	JoseModule * module = new JoseModule;
-
-	moduleManager.registerModule(module);
-
+	
+	registerAllModules();
 	
 	
 	if (!render->init())
@@ -47,22 +45,30 @@ void Engine::stop()
 
 void Engine::doFrame()
 {
-	update();
-	moduleManager.render();
-	render->render();
+	double t = glfwGetTime();
+	while (!glfwWindowShouldClose(render->getCtxWindow()->getWindowGL())) {
+		t = glfwGetTime() - t;
+		update(t);
+		moduleManager.render();
+		render->render();
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000) *t);
+		t = glfwGetTime();
+	
+	}
 }
 
-void Engine::update()
+void Engine::update(float dt)
 {
 
-	float dt = 1.0f / 60.0f;
 	
 	moduleManager.update(dt);
 
-	//std::this_thread::sleep_for
+
 }
 
 void Engine::registerAllModules()
 {
+	JoseModule * module = new JoseModule;
 
+	moduleManager.registerModule(module);
 }

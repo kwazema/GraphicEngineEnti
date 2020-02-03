@@ -15,9 +15,10 @@ private:
 	GLuint program;
 	WindowGLFW * window;
 	GLuint mvp_location;
-
 	glm::mat4 mvp;
 	float lookAtval = 0.0f;
+
+	void initRender();
 public:
 	RenderModule(WindowGLFW * w);
 	~RenderModule();
@@ -29,5 +30,7 @@ public:
 	bool init();
 	void render();
 	void destroy();
+
+	WindowGLFW * getCtxWindow();
 };
 

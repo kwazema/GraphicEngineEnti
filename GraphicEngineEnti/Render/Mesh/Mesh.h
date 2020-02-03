@@ -27,7 +27,7 @@ private:
 	
 	void* vb = nullptr;
 	std::vector<unsigned int> ib;
-	GLuint vbId, ibId;
+	GLuint vbId, ibId,VAO;
 	uint32_t bytes_per_vertex = 0;
 	uint32_t bytes_per_index = 0;
 	uint32_t nindices = 0;

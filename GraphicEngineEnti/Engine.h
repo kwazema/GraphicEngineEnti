@@ -14,7 +14,7 @@ public:
 	bool start();
 	void stop();
 	void doFrame();
-	void update();
+	void update(float dt);
 
 
 private:
