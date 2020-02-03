@@ -130,27 +130,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Modules\JoseModule.cpp" />
+    <ClCompile Include="Modules\moduleManager.cpp" />
+    <ClCompile Include="Render\Mesh\primitives.cpp" />
+    <ClCompile Include="Render\Mesh\Mesh.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Render\RenderModule.cpp" />
+    <ClCompile Include="Modules\RenderModule.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
     <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\precompiledHeader.cpp">
+    <ClCompile Include="precompiledHeader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">precompiledHeader.h</PrecompiledHeaderFile>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="Render\WindowGLFW.cpp" />
     <ClCompile Include="Render\VertexDeclarationBuffer.cpp" />
+    <ClCompile Include="Geometry\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Modules\JoseModule.h" />
+    <ClInclude Include="Modules\moduleManager.h" />
+    <ClInclude Include="Modules\Module.h" />
+    <ClInclude Include="Render\Mesh\primitives.h" />
+    <ClInclude Include="Render\Mesh\Mesh.h" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="Render\RenderModule.h" />
+    <ClInclude Include="Modules\RenderModule.h" />
     <ClInclude Include="Shader\Shader.h" />
-    <ClInclude Include="Source\precompiledHeader.h" />
+    <ClInclude Include="precompiledHeader.h" />
     <ClInclude Include="Render\WindowGLFW.h" />
     <ClInclude Include="Render\VertexDeclarationBuffer.h" />
+    <ClInclude Include="Geometry\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

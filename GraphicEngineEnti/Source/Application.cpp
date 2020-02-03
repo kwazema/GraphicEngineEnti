@@ -1,55 +1,15 @@
 #include "precompiledHeader.h"
-#include "../Render/RenderModule.h"
+#include "../Engine.h"
 
 int main()
 {
-	//if (!glfwInit())
-	//	exit(EXIT_FAILURE);
-	WindowGLFW window(640,480,"HELLO WORLD");
-	RenderModule render(&window) ;
-	if (!render.init())
+	if (!Engine::get().start())
 	{
 		assert(0);
 	}
-	render.render();
-	//GLFWwindow* window;
-	//
-	///* Initialize the library */
-	//if (!glfwInit())
-	//	return -1;
+	Engine::get().doFrame();
 
-	///* Create a windowed mode window and its OpenGL context */
-	//window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-	//if (!window)
-	//{
-	//	glfwTerminate();
-	//	return -1;
-	//}
+	Engine::get().stop();
 
-	///* Make the window's context current */
-	//glfwMakeContextCurrent(window);
-	//if (glewInit() != GLEW_OK)
-	//{
-	//	std::cout << "ERROR" << std::endl;
-	//}
-	///* Loop until the user closes the window */
-	//while (!glfwWindowShouldClose(window))
-	//{
-	//	/* Render here */
-	//	glClear(GL_COLOR_BUFFER_BIT);
-	//	glBegin(GL_TRIANGLES);
-	//	glVertex2f(0.0f, 1.0f);
-	//	glVertex2f(-1.0f, -1.0f);
-	//	glVertex2f(1.0f, -1.0f);
-	//	glEnd();
-
-	//	/* Swap front and back buffers */
-	//	glfwSwapBuffers(window);
-
-	//	/* Poll for and process events */
-	//	glfwPollEvents();
-	//}
-
-	//glfwTerminate();
-	//return 0;
+	return 0;
 }
