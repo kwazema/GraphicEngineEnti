@@ -12,5 +12,5 @@ void main()
 	if(uColor == vec4(0.0, 0.0, 0.0, 0.0))
     color = color;
 	else
-	color = vec3(uColor);
+	color = vec3(uColor)  + vCol;
 }
