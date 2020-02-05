@@ -49,6 +49,10 @@ void ModuleManager::stopModule(Module * module)
 		inactiveModules.push_back(*it);
 		activeModules.erase(it);
 	}
+	else
+	{
+		assert(0);
+	}
 }
 
 

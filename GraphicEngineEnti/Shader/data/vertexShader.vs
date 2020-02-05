@@ -9,7 +9,7 @@ void main()
 {
 	
     gl_Position = MVP * vec4(vPos, 1.0);
-	color =  vCol;
+	color =  (vCol + uColor)/2.;
 	/*if(uColor == vec4(0.0, 0.0, 0.0, 0.0))
     color = uColor + vCol;
 	else

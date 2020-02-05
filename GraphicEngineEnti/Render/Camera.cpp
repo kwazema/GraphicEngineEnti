@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "../Engine.h"
 Camera::Camera() {
-
+	
 }
 
 void Camera::updateViewProjection() {
@@ -11,11 +11,11 @@ void Camera::updateViewProjection() {
 }
 
 void Camera::lookAt(glm::vec3 new_eye, glm::vec3 new_target, glm::vec3 new_up_aux) {
-	pos = new_eye;
+	transform.setPosition(new_eye);
 	target = new_target;
 
 	
-	view = glm::lookAt(pos, target, new_up_aux);
+	view = glm::lookAt(transform.getPosition(), target, new_up_aux);
 	updateViewProjection();
 }
 

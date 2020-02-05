@@ -1,14 +1,18 @@
 #pragma once
 class RenderModule;
 #include "Modules/moduleManager.h"
-
+#include "Render/Camera.h"
 
 class Engine
 {
 
 public:
 	static Engine& get();
-
+	void SetCamera(Camera * newCamera);
+	const Camera * getCamera()
+	{
+		return cam;
+	}
 	RenderModule& getRender();
 	inline const std::vector<Module*> & getActiveModules() { return  moduleManager.getActiveModules(); };
 
@@ -21,7 +25,7 @@ public:
 private:
 	RenderModule* render = nullptr;
 	ModuleManager moduleManager;
-
+	Camera * cam = nullptr;
 	void registerAllModules();
 
 };

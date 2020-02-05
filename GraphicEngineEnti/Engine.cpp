@@ -5,10 +5,19 @@
 
 
 
+
 Engine& Engine::get()
 {
 	static Engine instance;
 	return instance;
+}
+
+void Engine::SetCamera(Camera * newCamera)
+{
+	assert(newCamera);
+	delete cam;
+	cam = newCamera;
+
 }
 
 RenderModule& Engine::getRender()
@@ -49,6 +58,7 @@ void Engine::doFrame()
 	while (!glfwWindowShouldClose(render->getCtxWindow()->getWindowGL())) {
 		t = glfwGetTime() - t;
 		update(t);
+		assert(cam);
 		render->render();
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000) *t);
 		t = glfwGetTime();
@@ -58,7 +68,7 @@ void Engine::doFrame()
 
 void Engine::update(float dt)
 {
-
+	
 	moduleManager.update(dt);
 
 
@@ -73,5 +83,7 @@ void Engine::registerAllModules()
 {
 	JoseModule * module = new JoseModule;
 
+	
 	moduleManager.registerModule(module);
+//	moduleManager.stopModule(module);
 }

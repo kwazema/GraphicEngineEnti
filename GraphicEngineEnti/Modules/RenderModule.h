@@ -2,15 +2,14 @@
 #include "../Render/WindowGLFW.h"
 #include "../Render/VertexDeclarationBuffer.h"
 #include "../Shader/Shader.h"
-#include "../Render/Camera.h"
 #include "../Render/Mesh/Mesh.h"
 #include "../Geometry/Transform.h"
 #include "../Engine.h"
 class RenderModule
 {
-	
+
 private:
-	Camera cam;
+	
 	bool initOpenGL() const;
 	int w, h;
 	GLuint program;
@@ -32,6 +31,11 @@ public:
 	bool init();
 	void render();
 	void destroy();
+
+	const glm::vec2 & getViewport()
+	{
+		return glm::vec2(w, h);
+	}
 
 	WindowGLFW * getCtxWindow();
 };
