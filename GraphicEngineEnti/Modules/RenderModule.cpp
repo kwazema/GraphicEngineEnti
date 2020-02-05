@@ -8,8 +8,10 @@ bool RenderModule::init()
 {
 	if (!initOpenGL()) return false;
 	initRender();
-	glEnable(GL_DEPTH_TEST);
-	 //glDepthFunc(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	return true;
 }
 
@@ -18,7 +20,7 @@ void RenderModule::render()
 {
 	
 
-	glm::vec3 pos = cam.getPosition();
+		glm::vec3 pos = cam.getPosition();
 
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -86,7 +88,7 @@ void RenderModule::initRender()
 	glVertexAttribPointer(vpos_location, 3, GL_FLOAT, GL_FALSE,
 		sizeof(VtxPosColor), (void*)0);
 	glEnableVertexAttribArray(vcol_location);
-	glVertexAttribPointer(vcol_location, 3, GL_FLOAT, GL_FALSE,
+	glVertexAttribPointer(vcol_location, 4, GL_FLOAT, GL_FALSE,
 		sizeof(VtxPosColor), (void*)(sizeof(float) * 3));
 
 	glfwGetFramebufferSize(window->getWindowGL(),

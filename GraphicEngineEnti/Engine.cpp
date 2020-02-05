@@ -49,7 +49,6 @@ void Engine::doFrame()
 	while (!glfwWindowShouldClose(render->getCtxWindow()->getWindowGL())) {
 		t = glfwGetTime() - t;
 		update(t);
-		moduleManager.render();
 		render->render();
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000) *t);
 		t = glfwGetTime();
@@ -60,7 +59,6 @@ void Engine::doFrame()
 void Engine::update(float dt)
 {
 
-	
 	moduleManager.update(dt);
 
 

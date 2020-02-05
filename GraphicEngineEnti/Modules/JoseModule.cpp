@@ -41,7 +41,7 @@ extern Mesh cube;
 
 	 //modelT.setRotation(glm::identity<glm::mat4>());
 	 modelT.setPosition(glm::vec3(0, 0, 5));
-	 Engine::get().setModelObjectConstants(modelT.asMatrix(), glm::vec4(1, 0, 0, 1));
+	 Engine::get().setModelObjectConstants(modelT.asMatrix(), glm::vec4(1, 1, 1, 1.0f));
 	 cube.activateAndRender();
 
   } 

@@ -10,7 +10,7 @@ public:
 	static Engine& get();
 
 	RenderModule& getRender();
-	inline const std::vector<Module*> & getActiveModules() { return moduleManager.getActiveModules(); };
+	inline const std::vector<Module*> & getActiveModules() { return  moduleManager.getActiveModules(); };
 
 	bool start();
 	void stop();
