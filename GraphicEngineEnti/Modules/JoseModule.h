@@ -4,6 +4,7 @@
 #include "../Geometry/Transform.h"
 #include "../Modules/RenderModule.h"
 #include "../Render/Camera.h"
+
 class JoseModule : public Module
 {
 private:
@@ -11,6 +12,10 @@ private:
 	Camera * cam;
 	GLFWwindow* window;
 	glm::vec3 pos;
+	glm::vec3 front = glm::vec3(0, 0, -1);
+
+	glm::vec3 target = glm::vec3(0, 0, -1);
+	float newAngle = 0.0f;
 public:
 
 		virtual void start() override;

@@ -41,7 +41,12 @@ public:
 	float getFov() const { return fov_vertical_radians; }
 	float getZMin() const { return z_min; }
 	float getZMax() const { return z_max; }
-	const glm::vec3 & getFront() { return transform.getFront(); }
+	const glm::vec3  getFront() {
+		glm::mat4 inverted = glm::inverse(view);
+		glm::vec3 normal = normalize(glm::vec3(inverted[2]));
+		return normal;
+	}
+
 	Transform & getTransform() {
 		return transform;
 	}

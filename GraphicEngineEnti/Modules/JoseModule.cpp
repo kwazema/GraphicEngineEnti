@@ -15,7 +15,9 @@ extern Mesh cube;
 		  500.0f);
 	  window = Engine::get().getRender().getCtxWindow()->getWindowGL();
 	  Engine::get().SetCamera(cam);
+	  cam->getTransform().setPosition(0, 0, 8);
 	  pos = cam->getPosition();
+	front = glm::vec3(0, 0, 1);
   } 
 
   void JoseModule::stop() 
@@ -27,51 +29,59 @@ extern Mesh cube;
   void JoseModule::update(float elapsed)
   {
 	
-	  glm::vec3 euler = cubetransform.getEulerAngles();
+	  glm::vec3 euler = quad3.getEulerAngles();
 	  quad1.setPosition(0.0f, 0.0f, 0.0f);
 
 	  quad2.setPosition(glm::vec3(0, 1, -3));
-	  quad2.setEulerAngles(euler.x, euler.y + glfwGetTime(), euler.z);
+	  float num = euler.y + glfwGetTime() * 10.0f;
+	  quad2.setEulerAngles(euler.x, glm::radians(num), euler.z);
 
 	  quad3.setPosition(glm::vec3(0, -0.5, -1));
 	  quad3.setScale(2.5f);
-	  quad3.setEulerAngles(euler.x + glfwGetTime(), euler.y, euler.z);
+	  quad3.setEulerAngles(glm::radians(euler.x + glfwGetTime()), euler.y, euler.z);
 
 	  cubetransform.setPosition(glm::vec3(0, 0, 5));
-	  cubetransform.setEulerAngles(euler.x + glfwGetTime(), euler.y, euler.z);
+	  cubetransform.setEulerAngles(glm::radians(euler.x + glfwGetTime()), euler.y, euler.z);
 
 	  cameraController();
 	 
-	  cam->lookAt(pos, pos + cam->getFront());
+	  //glm::vec3 front = cam->getFront();
+	  cam->lookAt(pos,  target);
   }
 
   void JoseModule::cameraController()
   {
+	  front = glm::vec3(0, 0, 1);
 	  glm::vec3 euler = cam->getTransform().getEulerAngles();
-	  float newAngle = euler.y;
-	 if (glfwGetKey(window,GLFW_KEY_W) == GLFW_PRESS)
-	{
-		pos += 0.1f * glm::vec3(0, 0, -1);
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		pos += 0.1f * glm::vec3(0, 0, 1);
-	}
+	 
+
+	
+	
+	 
+	
+
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		
-		newAngle += 5.0f ;
-		
+		newAngle +=glm::radians(5.0f) ;
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		newAngle -= 5.0f;
+		newAngle -= glm::radians(5.0f);
 	}
+	//cam->getTransform().yawPitchToVector(front ,newAngle, 0.0f);
 
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		pos -= 0.1f * cam->getFront();//cam->getFront();
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		pos += 0.1f * cam->getFront();
+	}
+	target = pos + glm::vec3(5 * sin(newAngle), 0.0f, 5 * cos(newAngle));
 	cam->getTransform().setPosition(pos);
-	cam->transform.setEulerAngles(euler.x,euler.y + glfwGetTime(), euler.z);
-	std::cout << cam->getTransform().getEulerAngles().x << " " 
-		<< cam->getTransform().getEulerAngles().y<< std::endl;
+
+
   }
 
   void JoseModule::renderDebug() 

@@ -4,6 +4,7 @@ class Transform
 
 	glm::mat4  rot;
 	glm::vec3  pos;
+	glm::vec3 front;
 	float scale = 1.0f;
 
 public:
@@ -21,8 +22,16 @@ public:
 	glm::vec3 getUp() const;
 	glm::mat4 asMatrix() const;
 	void setEulerAngles(float yaw, float pitch, float roll);
-	glm::vec3& getEulerAngles();
+	glm::vec3 getEulerAngles();
 
+
+	void  yawPitchToVector(glm::vec3 & front, float yaw, float pitch) {
+		front = glm::vec3(
+			cos(yaw) * cos(pitch),
+			sin(pitch),
+			sin(yaw) * cos(pitch));
+		;
+	}
 
 	float getDeltaYawToAimTo(glm::vec3 p) const;
 	bool isInCone(glm::vec3 p, float half_cone) const;

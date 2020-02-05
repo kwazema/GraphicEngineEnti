@@ -10,11 +10,11 @@ void Camera::updateViewProjection() {
 
 }
 
+
 void Camera::lookAt(glm::vec3 new_eye, glm::vec3 new_target, glm::vec3 new_up_aux) {
 	transform.setPosition(new_eye);
 	target = new_target;
 
-	
 	view = glm::lookAt(transform.getPosition(), target, new_up_aux);
 	updateViewProjection();
 }

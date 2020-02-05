@@ -5,9 +5,12 @@
 glm::mat4 Transform::asMatrix() const
 {
 	glm::mat4 mat = glm::identity<glm::mat4>();
-	return glm::scale(mat, glm::vec3(scale))
-		* glm::translate(mat, pos)
+	return 
+		glm::translate(mat, pos)
+		*glm::scale(mat, glm::vec3(scale))
 		* rot
+		
+		
 		;
 }
 Transform::Transform()
@@ -16,8 +19,9 @@ Transform::Transform()
 	pos = glm::vec3(0, 0, 0);
 }
 glm::vec3 Transform::getFront() const {
-	glm::mat4 inverted = glm::inverse(asMatrix()); 
-	return glm::normalize(glm::vec3(inverted[2]));
+	glm::mat4 inverted = glm::inverse(asMatrix());
+	glm::vec3 normal = normalize(glm::vec3(inverted[2]));
+	return normal;
 }
 
 glm::vec3 Transform::getLeft() const {
@@ -34,17 +38,18 @@ glm::vec3 Transform::getUp() const
 
 void Transform::setEulerAngles(float yaw, float pitch, float roll) {
 
-
-	rot = glm::yawPitchRoll(yaw, pitch, roll);
+	
+	rot = glm::eulerAngleXYZ(yaw, pitch, roll);
 
 }
 
-glm::vec3& Transform::getEulerAngles()
+glm::vec3 Transform::getEulerAngles()
 {
-	glm::vec3 euler(0.0f, 0.0f, 0.0f);
-	glm::eulerAngleXYX(euler.x, euler.y, euler.z);
 
-	return euler;
+	
+	glm::quat rotation = glm::toQuat(rot);
+	glm::vec3 angles = glm::eulerAngles(rotation);
+	return angles;
 }
 
 
