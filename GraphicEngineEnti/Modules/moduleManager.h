@@ -3,6 +3,7 @@
 
 class ModuleManager
 {
+	friend class Engine;
 public:
 	void start();
 	void stop();
@@ -13,6 +14,8 @@ public:
 
 	bool isActive(Module* module);
 	ModuleManager() = default;
+
+	inline const std::vector<Module*> & getActiveModules() { return activeModules; }
 
 private:
 	void startModule(Module * module);

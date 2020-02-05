@@ -14,6 +14,7 @@
 #include "glm/gtx/quaternion.hpp"
 #include <map>
 #include <thread>
+#include "glm/gtx/euler_angles.hpp"
 
 
 

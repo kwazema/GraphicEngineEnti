@@ -8,6 +8,8 @@ bool RenderModule::init()
 {
 	if (!initOpenGL()) return false;
 	initRender();
+	glEnable(GL_DEPTH_TEST);
+	 //glDepthFunc(GL_DEPTH_TEST);
 	return true;
 }
 
@@ -15,43 +17,32 @@ bool RenderModule::init()
 void RenderModule::render()
 {
 	
-	Transform modelT;
 
-	
+	glm::vec3 pos = cam.getPosition();
 
-		glClear(GL_COLOR_BUFFER_BIT);
 
-		modelT.setPosition(glm::vec3(0, 0, -3));
-		modelT.setScale(1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		
-		cam.lookAt( glm::vec3(0, 1, 2), modelT.getPosition());
-		
-
-		/*for (auto& module : modules)
+		if (glfwGetKey(window->getWindowGL(), GLFW_KEY_W) == GLFW_PRESS)
 		{
-			module.render();
-		}*/
-	
-		setModelObjectConstants(modelT.asMatrix(), glm::vec4(1, 0, 0, 1));
+			pos += 0.1f * glm::vec3(0, 0, -1);
+		}
+		if (glfwGetKey(window->getWindowGL(), GLFW_KEY_S) == GLFW_PRESS)
+		{
+			pos += 0.1f * glm::vec3(0, 0, 1);
+		}
 
-	
-		quad.activateAndRender();
 
-		modelT.setPosition(glm::vec3(0, 1, -3));
-		setModelObjectConstants(modelT.asMatrix(), glm::vec4(1, 0, 0, 1));
-		quad.activateAndRender();
+		cam.lookAt( pos, pos + glm::vec3(0,0,-1));
+		
 
-		modelT.setPosition(glm::vec3(0, -0.5, -1));
-		modelT.setScale(2.5);
-		glm::mat4 m = glm::identity<glm::mat4>();
-		unsigned int transformLoc = glGetUniformLocation(program, "uColor");
-		GLfloat vDiffuseColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+		for (auto& module : Engine::get().getActiveModules())
+		{
+			module->renderDebug();
+		}
 	
-		glUniform4fv(transformLoc, 1, (const GLfloat *)vDiffuseColor);
-		float t = glfwGetTime();
-		m = glm::rotate(m, t, glm::vec3(0, 1, 0));
-		setModelObjectConstants( modelT.asMatrix() * m , glm::vec4(1, 0, 0, 1));
-		quad.activateAndRender();
+		
 
 		glfwSwapBuffers(window->getWindowGL());
 		glfwPollEvents();
@@ -92,18 +83,18 @@ void RenderModule::initRender()
 
 
 	glEnableVertexAttribArray(vpos_location);
-	glVertexAttribPointer(vpos_location, 2, GL_FLOAT, GL_FALSE,
+	glVertexAttribPointer(vpos_location, 3, GL_FLOAT, GL_FALSE,
 		sizeof(VtxPosColor), (void*)0);
 	glEnableVertexAttribArray(vcol_location);
 	glVertexAttribPointer(vcol_location, 3, GL_FLOAT, GL_FALSE,
-		sizeof(VtxPosColor), (void*)(sizeof(float) * 2));
+		sizeof(VtxPosColor), (void*)(sizeof(float) * 3));
 
 	glfwGetFramebufferSize(window->getWindowGL(),
 		&w, &h);
 
-	cam.setProjectionParams((float)glm::radians(90.0f),
+	cam.setProjectionParams((float)glm::radians(45.0f),
 		w / h,
-		0.0f,
+		0.1f,
 		500.0f);
 
 
@@ -169,12 +160,13 @@ RenderModule::~RenderModule()
 {
 }
 
-void RenderModule::setModelObjectConstants(glm::mat4 model, glm::vec4 color)
+void RenderModule::setModelObjectConstants(const glm::mat4 model, const glm::vec4 color)
 {
 
 	mvp = cam.getViewProjection() * model;
 	glUseProgram(program);
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const glm::float32*) & mvp);
+	glUniform4fv(glGetUniformLocation(program, "uColor"), 1, (const glm::float32*) &color);
 	
 }
 

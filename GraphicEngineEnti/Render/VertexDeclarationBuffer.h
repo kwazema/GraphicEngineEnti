@@ -12,8 +12,9 @@
 
 static const struct VtxPosColor
 {
-	float x, y;
+	float x, y,z;
 	float r, g, b;
+	VtxPosColor(float nx, float ny, float nz, float nr, float ng, float nb) : x(nx), y(ny),z(nz), r(nr), g(ng), b(nb){}
 };
 
 

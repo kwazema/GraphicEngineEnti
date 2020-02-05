@@ -5,6 +5,7 @@
 #include "../Render/Camera.h"
 #include "../Render/Mesh/Mesh.h"
 #include "../Geometry/Transform.h"
+#include "../Engine.h"
 class RenderModule
 {
 	
@@ -24,7 +25,8 @@ public:
 	~RenderModule();
 	
 
-	void setModelObjectConstants(glm::mat4 model, glm::vec4 color);
+	void setModelObjectConstants(const glm::mat4 model, const glm::vec4 color);
+	
 	bool attachShader(GLuint & shaderId);
 	void useProgram();
 	bool init();

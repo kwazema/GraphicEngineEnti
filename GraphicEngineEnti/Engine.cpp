@@ -66,6 +66,11 @@ void Engine::update(float dt)
 
 }
 
+void Engine::setModelObjectConstants(const glm::mat4& model, const glm::vec4& color)
+{
+	getRender().setModelObjectConstants(model, color);
+}
+
 void Engine::registerAllModules()
 {
 	JoseModule * module = new JoseModule;
