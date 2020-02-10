@@ -5,6 +5,7 @@
 #include "../Render/Mesh/Mesh.h"
 #include "../Geometry/Transform.h"
 #include "../Engine.h"
+#include "../Shader/pipeline/Pipeline.h"
 class RenderModule
 {
 
@@ -17,6 +18,8 @@ private:
 	GLuint mvp_location;
 	glm::mat4 mvp;
 	float lookAtval = 0.0f;
+	Pipeline *  basicPipeline;
+	std::unordered_map<std::string, Pipeline*> pipelines;
 
 	void initRender();
 public:

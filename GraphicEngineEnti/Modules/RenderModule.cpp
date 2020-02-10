@@ -42,6 +42,7 @@ void RenderModule::destroy()
 {
 	glfwDestroyWindow(window->getWindowGL());
 	glfwTerminate();
+	delete basicPipeline;
 	delete window;
 	exit(EXIT_SUCCESS);
 }
@@ -55,28 +56,19 @@ void RenderModule::initRender()
 {
 	createPrimitives();
 
-
-	Shader vertex, fragment;
-
-	vertex.init("Shader/data/vertexShader.vs", GL_VERTEX_SHADER);
-	fragment.init("Shader/data/fragmentShader.fs", GL_FRAGMENT_SHADER);
-	program = glCreateProgram();
-	glAttachShader(program, vertex.getId());
-	glAttachShader(program, fragment.getId());
-	glLinkProgram(program);
-
-	GLuint  vpos_location, vcol_location;
-	mvp_location = glGetUniformLocation(program, "MVP");
-	vpos_location = glGetAttribLocation(program, "vPos");
-	vcol_location = glGetAttribLocation(program, "vCol");
-
-
-	glEnableVertexAttribArray(vpos_location);
-	glVertexAttribPointer(vpos_location, 3, GL_FLOAT, GL_FALSE,
+	basicPipeline =  new Pipeline("Shader/data/vertexShader.vs", "Shader/data/fragmentShader.fs");
+	basicPipeline->setAttribDefinition("vPos", 3, GL_FLOAT, GL_FALSE,
 		sizeof(VtxPosColor), (void*)0);
-	glEnableVertexAttribArray(vcol_location);
-	glVertexAttribPointer(vcol_location, 4, GL_FLOAT, GL_FALSE,
+	basicPipeline->setAttribDefinition("vCol", 4, GL_FLOAT, GL_FALSE,
 		sizeof(VtxPosColor), (void*)(sizeof(float) * 3));
+
+
+
+	mvp_location = glGetUniformLocation(basicPipeline->getPipelineID(), "MVP");
+
+	
+
+
 
 	glfwGetFramebufferSize(window->getWindowGL(),
 		&w, &h);
@@ -150,21 +142,21 @@ void RenderModule::setModelObjectConstants(const glm::mat4 model, const glm::vec
 {
 
 	mvp = Engine::get().getCamera()->getViewProjection() * model;
-	glUseProgram(program);
+	glUseProgram(basicPipeline->getPipelineID());
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const glm::float32*) & mvp);
-	glUniform4fv(glGetUniformLocation(program, "uColor"), 1, (const glm::float32*) &color);
+	glUniform4fv(glGetUniformLocation(basicPipeline->getPipelineID(), "uColor"), 1, (const glm::float32*) &color);
 	
 }
 
 bool RenderModule::attachShader(GLuint & shaderId)
 {
 	//Check if shader have been already compiled
-	glAttachShader(program, shaderId);
+	glAttachShader(basicPipeline->getPipelineID(), shaderId);
 
 	return true;
 }
 
 void RenderModule::useProgram()
 {
-	glLinkProgram(program);
+	glLinkProgram(basicPipeline->getPipelineID());
 }

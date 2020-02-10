@@ -88,7 +88,6 @@ extern Mesh cube;
 	target = pos + glm::vec3( sinf(newAngle) * cosf(newPitch),
 		sinf(newPitch), cosf(newAngle) * cosf(newPitch));
 	glm::vec3 front = cam->getFront();
-	//cam->getTransform().yawPitchToVector(front, newAngle, 0.0f);
 	
 	cam->getTransform().setPosition(pos);
 
