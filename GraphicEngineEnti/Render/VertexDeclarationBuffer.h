@@ -18,6 +18,13 @@ static const struct VtxPosColor
 		x(nx), y(ny),z(nz), r(nr), g(ng), b(nb),a(na){}
 };
 
+static const struct VtcPosColorUV
+{
+	float x, y, z;
+	float r, g, b, a;
+	float u, v;
+};
+
 
 
 class VertexDeclarationBuffer

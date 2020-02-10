@@ -1,7 +1,7 @@
 #pragma once
 #include "glm/glm.hpp"
 #include"glm/gtc/constants.hpp"
-#include "../Geometry/Transform.h"
+#include "../../Geometry/Transform.h"
 
 #define PI 3.14159265358979323846264338327950288
 class Camera

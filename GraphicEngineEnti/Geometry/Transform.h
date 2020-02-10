@@ -26,11 +26,10 @@ public:
 
 
 	void  yawPitchToVector(glm::vec3 & front, float yaw, float pitch) {
-		front = glm::vec3(
-			cos(yaw) * cos(pitch),
-			sin(pitch),
-			sin(yaw) * cos(pitch));
-		;
+		this->front = glm::vec3(
+			sinf(yaw) * cosf(-pitch),
+			sinf(-pitch),
+			cosf(yaw) * cosf(-pitch));
 	}
 
 	float getDeltaYawToAimTo(glm::vec3 p) const;

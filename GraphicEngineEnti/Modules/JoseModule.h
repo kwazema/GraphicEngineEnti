@@ -3,7 +3,7 @@
 #include "../Render/Mesh/primitives.h"
 #include "../Geometry/Transform.h"
 #include "../Modules/RenderModule.h"
-#include "../Render/Camera.h"
+#include "../Render/Camera/Camera.h"
 
 class JoseModule : public Module
 {
@@ -16,6 +16,7 @@ private:
 
 	glm::vec3 target = glm::vec3(0, 0, -1);
 	float newAngle = 0.0f;
+	float newPitch = 0.0f;
 public:
 
 		virtual void start() override;

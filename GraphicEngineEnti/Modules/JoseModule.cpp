@@ -55,10 +55,6 @@ extern Mesh cube;
 	  glm::vec3 euler = cam->getTransform().getEulerAngles();
 	 
 
-	
-	
-	 
-	
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
@@ -78,7 +74,22 @@ extern Mesh cube;
 	{
 		pos += 0.1f * cam->getFront();
 	}
-	target = pos + glm::vec3(5 * sin(newAngle), 0.0f, 5 * cos(newAngle));
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+	{
+		newPitch += glm::radians(5.0f);
+	}
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+	{
+		newPitch -= glm::radians(5.0f);
+	}
+	
+		
+	target = pos + glm::vec3( sinf(newAngle) * cosf(newPitch),
+		sinf(newPitch), cosf(newAngle) * cosf(newPitch));
+	glm::vec3 front = cam->getFront();
+	//cam->getTransform().yawPitchToVector(front, newAngle, 0.0f);
+	
 	cam->getTransform().setPosition(pos);
 
 

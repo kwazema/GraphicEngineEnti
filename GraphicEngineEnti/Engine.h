@@ -1,7 +1,7 @@
 #pragma once
 class RenderModule;
 #include "Modules/moduleManager.h"
-#include "Render/Camera.h"
+#include "Render/Camera/Camera.h"
 
 class Engine
 {

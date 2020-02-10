@@ -1,6 +1,6 @@
 #include "precompiledHeader.h"
 #include "Camera.h"
-#include "../Engine.h"
+#include "../../Engine.h"
 Camera::Camera() {
 	
 }
