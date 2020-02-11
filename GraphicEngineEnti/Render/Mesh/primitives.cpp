@@ -8,11 +8,11 @@ Mesh cube;
 bool createQuad()
 {
 
-	std::vector<VtxPosColor> quadVertices;
-	quadVertices.push_back({ -1.0f,  -1.0f,0.f, 0.f, 0.f, 1.f,1.0f }); //0
-	quadVertices.push_back({ -1.0f, 1.0f,0.f, 1.f, 0.f, 0.f,1.0f });//1
-	quadVertices.push_back({ 1.0, 1.0f,0.f, 0.f, 1.f, 0.f,1.0f });//2
-	quadVertices.push_back({ 1.0f, -1.0f,0.f, 1.f, 1.f, 1.f,1.0f });//3
+	std::vector<VtcPosColorUV> quadVertices;
+	quadVertices.push_back({ -1.0f, -1.0f, 0.f, 0.f, 0.f, 1.f,1.0f , 0.0f,0.0f }); //0
+	quadVertices.push_back({ -1.0f, 1.0f,0.f, 1.f, 0.f, 0.f,1.0f,0.0f,1.0f });//1
+	quadVertices.push_back({ 1.0, 1.0f,0.f, 0.f, 1.f, 0.f,1.0f, 1.0f,1.0f });//2
+	quadVertices.push_back({ 1.0f, -1.0f,0.f, 1.f, 1.f, 1.f,1.0f,1.0f, 0.0f });//3
 
 
 	std::vector<unsigned int>  idb = {
