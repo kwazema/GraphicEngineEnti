@@ -10,6 +10,7 @@ class JoseModule : public Module
 private:
 	Transform quad1,quad2,quad3,cubetransform;
 	Camera * cam;
+	unsigned int texture;
 	GLFWwindow* window;
 	glm::vec3 pos;
 	glm::vec3 front = glm::vec3(0, 0, -1);
@@ -17,6 +18,8 @@ private:
 	glm::vec3 target = glm::vec3(0, 0, -1);
 	float newAngle = 0.0f;
 	float newPitch = 0.0f;
+
+	void loadTexture();
 public:
 
 		virtual void start() override;

@@ -10,9 +10,9 @@ bool createQuad()
 
 	std::vector<VtcPosColorUV> quadVertices;
 	quadVertices.push_back({ -1.0f, -1.0f, 0.f, 0.f, 0.f, 1.f,1.0f , 0.0f,0.0f }); //0
-	quadVertices.push_back({ -1.0f, 1.0f,0.f, 1.f, 0.f, 0.f,1.0f,0.0f,1.0f });//1
-	quadVertices.push_back({ 1.0, 1.0f,0.f, 0.f, 1.f, 0.f,1.0f, 1.0f,1.0f });//2
-	quadVertices.push_back({ 1.0f, -1.0f,0.f, 1.f, 1.f, 1.f,1.0f,1.0f, 0.0f });//3
+	quadVertices.push_back({ -1.0f, 1.0f,0.f, 1.f, 0.f, 0.f,1.0f,  1.0f,0.0f });//1
+	quadVertices.push_back({ 1.0, 1.0f,0.f, 0.f, 1.f, 0.f,1.0f,  1.0f,1.0f });//2
+	quadVertices.push_back({ 1.0f, -1.0f,0.f, 1.f, 1.f, 1.f,1.0f, 0.0f, 1.0f });//3
 
 
 	std::vector<unsigned int>  idb = {
@@ -22,7 +22,7 @@ bool createQuad()
 
 	return quad.create(quadVertices.data(),
 		quadVertices.size(),
-		sizeof(VtxPosColor),
+		sizeof(VtcPosColorUV),
 		idb,
 		idb.size(), sizeof(unsigned int) * idb.size(),
 		Mesh::eTopology::TRIANGLES);
@@ -30,7 +30,7 @@ bool createQuad()
 
 bool createCube()
 {
-	std::vector<VtxPosColor> quadVertices = 
+	std::vector<VtxPosColor> cubeVertices = 
 	{
 		
 		// front
@@ -65,8 +65,8 @@ bool createCube()
 		6, 7, 3
 	};
 
-	return cube.create(quadVertices.data(),
-		quadVertices.size(),
+	return cube.create(cubeVertices.data(),
+		cubeVertices.size(),
 		sizeof(VtxPosColor),
 		idb,
 		idb.size(), sizeof(unsigned int) * idb.size(),

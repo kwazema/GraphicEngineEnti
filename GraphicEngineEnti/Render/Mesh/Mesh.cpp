@@ -24,19 +24,17 @@ bool Mesh::create(
 	assert(topology != UNDEFINED);
 	
 
-	//assert(indices.empty());
+	
 	assert(nindices > 0);
 	
 	glGenBuffers(1, &VAO);
 	glGenBuffers(1, &vbId);
+	glGenBuffers(1, &ibId);
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbId);
-	glBufferData(GL_ARRAY_BUFFER, bytes_per_vertex * nvertexs,vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, bytes_per_vertex * nvertexs, vertices, GL_STATIC_DRAW);
 
-
-
-	glGenBuffers(1, &ibId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * ib.size(), ib.data(), GL_STATIC_DRAW);
 	

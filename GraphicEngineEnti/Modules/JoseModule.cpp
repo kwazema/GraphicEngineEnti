@@ -1,10 +1,37 @@
 #include "precompiledHeader.h"
 #include "JoseModule.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "../Render/Textures/stb_image.h"
 
 extern Mesh cube;
-  void JoseModule::start() 
+void JoseModule::loadTexture()
+{
+
+
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	// set the texture wrapping/filtering options (on the currently bound texture object)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// load and generate the texture
+	int width, height, nrChannels;
+	unsigned char *data = stbi_load("../GraphicEngineEnti/Render/Textures/data/wood.jpg", &width, &height, &nrChannels, 0);
+	if (data)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	stbi_image_free(data);
+}
+void JoseModule::start()
   {
-	 
+	
 	  cam = new Camera();
 	  
       glm::vec2 viewport=  Engine::get().getRender().getViewport();
@@ -17,7 +44,8 @@ extern Mesh cube;
 	  Engine::get().SetCamera(cam);
 	  cam->getTransform().setPosition(0, 0, 8);
 	  pos = cam->getPosition();
-	front = glm::vec3(0, 0, 1);
+	  loadTexture();
+	 front = glm::vec3(0, 0, 1);
   } 
 
   void JoseModule::stop() 
@@ -96,11 +124,14 @@ extern Mesh cube;
 
   void JoseModule::renderDebug() 
   {
-	
-	  Engine::get().setModelObjectConstants(quad1.asMatrix(), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	  glBindTexture(GL_TEXTURE_2D, texture);
+	  Engine::get().setModelObjectConstants(quad1.asMatrix(), 
+		  glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	  quad.activateAndRender();
 
-
+	
+	  
+/*
 	 Engine::get().setModelObjectConstants(quad2.asMatrix(), glm::vec4(1, 0, 0, 1));
 	 quad.render();
 
@@ -110,7 +141,7 @@ extern Mesh cube;
 
 	 Engine::get().setModelObjectConstants(cubetransform.asMatrix(), glm::vec4(1, 1, 1, 1.0f));
 	 cube.activateAndRender();
-
+	 */
   } 
 
 

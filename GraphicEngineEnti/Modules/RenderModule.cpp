@@ -19,13 +19,9 @@ bool RenderModule::init()
 void RenderModule::render()
 {
 	
-
-	
-
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-
+		pipelines["texture"]->activatePipeline();
 		for (auto& module : Engine::get().getActiveModules())
 		{
 			module->renderDebug();
@@ -42,7 +38,12 @@ void RenderModule::destroy()
 {
 	glfwDestroyWindow(window->getWindowGL());
 	glfwTerminate();
-	delete basicPipeline;
+
+	for (auto it = pipelines.begin(); it != pipelines.end(); ++it)
+	{
+		delete it->second;
+	}
+	pipelines.clear();
 	delete window;
 	exit(EXIT_SUCCESS);
 }
@@ -55,26 +56,34 @@ WindowGLFW * RenderModule::getCtxWindow()
 void RenderModule::initRender()
 {
 	createPrimitives();
-
+	Pipeline *  basicPipeline;
 	basicPipeline =  new Pipeline("Shader/data/vertexShader.vs", "Shader/data/fragmentShader.fs");
 	basicPipeline->setAttribDefinition("vPos", 3, GL_FLOAT, GL_FALSE,
 		sizeof(VtxPosColor), (void*)0);
 	basicPipeline->setAttribDefinition("vCol", 4, GL_FLOAT, GL_FALSE,
 		sizeof(VtxPosColor), (void*)(sizeof(float) * 3));
 
+	pipelines["basic"] = basicPipeline;
 
+	Pipeline * texturePipeline;
+	texturePipeline = new Pipeline("Shader/data/texture.vs", "Shader/data/texture.fs");
+	texturePipeline->setAttribDefinition("vPos", 3, GL_FLOAT, GL_FALSE,
+		sizeof(VtcPosColorUV), (void*)0);
+	texturePipeline->setAttribDefinition("vCol", 4, GL_FLOAT, GL_FALSE,
+		sizeof(VtcPosColorUV), (void*)(sizeof(float) * 3));
+	texturePipeline->setAttribDefinition("vUv", 2, GL_FLOAT, GL_FALSE,
+		sizeof(VtcPosColorUV), (void*)(sizeof(float) * 7));
+
+	pipelines["texture"] = texturePipeline;
 
 	mvp_location = glGetUniformLocation(basicPipeline->getPipelineID(), "MVP");
 
 	
 
-
+	
 
 	glfwGetFramebufferSize(window->getWindowGL(),
 		&w, &h);
-
-	
-
 
 	glClearColor(0.21176470588235294, 0.7019607843137254
 		, 0.8705882352941177, 1);
@@ -136,27 +145,46 @@ bool RenderModule::initOpenGL() const
 
 RenderModule::~RenderModule()
 {
+
+}
+
+void RenderModule::setPipeline(const std::string & pipelineName)
+{
+	
+	auto it = pipelines.find(pipelineName);
+
+	if (it == pipelines.end())
+	{
+		assert(0);
+		 pipelines["basic"]->activatePipeline();
+		 return;
+	}
+	
+	 it->second->activatePipeline();
+
+
 }
 
 void RenderModule::setModelObjectConstants(const glm::mat4 model, const glm::vec4 color)
 {
 
 	mvp = Engine::get().getCamera()->getViewProjection() * model;
-	glUseProgram(basicPipeline->getPipelineID());
+	glUseProgram(pipelines["texture"]->getPipelineID());
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const glm::float32*) & mvp);
-	glUniform4fv(glGetUniformLocation(basicPipeline->getPipelineID(), "uColor"), 1, (const glm::float32*) &color);
+	glUniform4fv(glGetUniformLocation(pipelines["texture"]->getPipelineID(), "uColor"), 1,
+		(const glm::float32*) &color);
 	
 }
 
 bool RenderModule::attachShader(GLuint & shaderId)
 {
 	//Check if shader have been already compiled
-	glAttachShader(basicPipeline->getPipelineID(), shaderId);
+	glAttachShader(pipelines["texture"]->getPipelineID(), shaderId);
 
 	return true;
 }
 
 void RenderModule::useProgram()
 {
-	glLinkProgram(basicPipeline->getPipelineID());
+	glLinkProgram(pipelines["texture"]->getPipelineID());
 }

@@ -18,7 +18,8 @@ private:
 	GLuint mvp_location;
 	glm::mat4 mvp;
 	float lookAtval = 0.0f;
-	Pipeline *  basicPipeline;
+
+
 	std::unordered_map<std::string, Pipeline*> pipelines;
 
 	void initRender();
@@ -26,6 +27,8 @@ public:
 	RenderModule(WindowGLFW * w);
 	~RenderModule();
 	
+
+	void setPipeline(const std::string & pipelineName);
 
 	void setModelObjectConstants(const glm::mat4 model, const glm::vec4 color);
 	
