@@ -58,6 +58,8 @@ void Mesh::render() const
 void Mesh::activate() const
 {
 	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, vbId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibId);
 }
 
 void Mesh::activateAndRender() const
