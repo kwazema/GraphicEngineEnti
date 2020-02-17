@@ -1,36 +1,17 @@
 #include "precompiledHeader.h"
 #include "JoseModule.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "../Render/Textures/stb_image.h"
+
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "../Render/Mesh/tiny_obj_loader.h"
+
 
 
 extern Mesh cube;
 void JoseModule::loadTexture()
 {
 
-
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	// set the texture wrapping/filtering options (on the currently bound texture object)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// load and generate the texture
-	int width, height, nrChannels;
-	unsigned char *data = stbi_load("../GraphicEngineEnti/Render/Textures/data/wood.jpg", &width, &height, &nrChannels, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
-	stbi_image_free(data);
+	 myTex  = ResourceManager::get().loadTexture("../GraphicEngineEnti/Render/Textures/data/wood.jpg");
+	 //myTex = dynamic_cast<Texture*>(ResourceManager::get().loadTexture("../GraphicEngineEnti/Render/Textures/data/wood.jpg"));
 }
 void JoseModule::loadMesh()
 {
@@ -81,6 +62,7 @@ void JoseModule::loadMesh()
 				// tinyobj::real_t red = attrib.colors[3*idx.vertex_index+0];
 				// tinyobj::real_t green = attrib.colors[3*idx.vertex_index+1];
 				// tinyobj::real_t blue = attrib.colors[3*idx.vertex_index+2];
+				
 			}
 			index_offset += fv;
 
@@ -184,7 +166,8 @@ void JoseModule::start()
 
   void JoseModule::renderDebug() 
   {
-	  glBindTexture(GL_TEXTURE_2D, texture);
+	   unsigned int  tex = myTex->getTexture();
+	  glBindTexture(GL_TEXTURE_2D, tex);
 	  Engine::get().setModelObjectConstants(quad1.asMatrix(), 
 		  glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	  quad.activateAndRender();
