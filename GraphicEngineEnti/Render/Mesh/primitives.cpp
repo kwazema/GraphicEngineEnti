@@ -77,7 +77,7 @@ bool createPrimitives()
 {
 	bool ok = true;
 	ok &= createQuad();
-	ok &= createCube();
+	//ok &= createCube();
 	return  ok;
 	
 }

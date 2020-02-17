@@ -2,6 +2,7 @@
 #include "../Modules/Module.h"
 #include "../Render/Mesh/primitives.h"
 #include "../Geometry/Transform.h"
+
 #include "../Modules/RenderModule.h"
 #include "../Render/Camera/Camera.h"
 
@@ -20,6 +21,7 @@ private:
 	float newPitch = 0.0f;
 
 	void loadTexture();
+	void loadMesh();
 public:
 
 		virtual void start() override;

@@ -130,6 +130,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Render\Mesh\tiny_obj_loader.cc" />
+    <ClCompile Include="Render\Textures\Textures.cpp" />
+    <ClCompile Include="Resource\ResourceManager.cpp" />
+    <ClCompile Include="Resource\Resource.cpp" />
     <ClCompile Include="Shader\pipeline\Pipeline.cpp" />
     <ClCompile Include="Render\Camera\CameraController.cpp" />
     <ClCompile Include="Modules\JoseModule.cpp" />
@@ -139,7 +143,6 @@
     <ClCompile Include="Render\Camera\Camera.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Modules\RenderModule.cpp" />
-    <ClCompile Include="Render\Textures\Texture.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="precompiledHeader.cpp">
@@ -152,6 +155,9 @@
     <ClCompile Include="Geometry\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Render\Mesh\tiny_obj_loader.h" />
+    <ClInclude Include="Resource\ResourceManager.h" />
+    <ClInclude Include="Resource\Resource.h" />
     <ClInclude Include="Shader\pipeline\Pipeline.h" />
     <ClInclude Include="Render\Camera\CameraController.h" />
     <ClInclude Include="Modules\JoseModule.h" />
