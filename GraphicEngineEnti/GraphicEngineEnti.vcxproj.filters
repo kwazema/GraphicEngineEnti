@@ -60,18 +60,6 @@
     <ClCompile Include="Shader\pipeline\Pipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Resource\Resource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Render\Textures\Textures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Render\Mesh\tiny_obj_loader.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\WindowGLFW.h">
@@ -95,6 +83,9 @@
     <ClInclude Include="Geometry\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Modules\RenderModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Modules\Module.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,25 +104,7 @@
     <ClInclude Include="Render\Camera\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Render\Textures\Textures.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Render\Textures\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shader\pipeline\Pipeline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource\Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Render\Mesh\tiny_obj_loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\RenderModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

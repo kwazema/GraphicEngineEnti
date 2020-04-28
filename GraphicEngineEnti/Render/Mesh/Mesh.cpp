@@ -24,20 +24,28 @@ bool Mesh::create(
 	assert(topology != UNDEFINED);
 	
 
-	
+	//assert(indices.empty());
 	assert(nindices > 0);
 	
-	glGenBuffers(1, &VAO);
+	//glGenVertexArrays(1,&VAO);
 	glGenBuffers(1, &vbId);
 	glGenBuffers(1, &ibId);
-	glBindVertexArray(VAO);
 
+	//glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, vbId);
-	glBufferData(GL_ARRAY_BUFFER, bytes_per_vertex * nvertexs, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, bytes_per_vertex * nvertexs,vertices, GL_STATIC_DRAW);
+
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * ib.size(), ib.data(), GL_STATIC_DRAW);
 	
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, new_bytes_per_vertex, (void*)0);
+	//// vertex normals
+	//glEnableVertexAttribArray(1);
+	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, new_bytes_per_vertex, (void*)3);
+
+
 	glBindVertexArray(0);
 
 	return true;
@@ -57,7 +65,7 @@ void Mesh::render() const
 
 void Mesh::activate() const
 {
-	glBindVertexArray(VAO);
+	//glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, vbId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibId);
 }

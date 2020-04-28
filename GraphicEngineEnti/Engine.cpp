@@ -15,7 +15,7 @@ Engine& Engine::get()
 void Engine::SetCamera(Camera * newCamera)
 {
 	assert(newCamera);
-	delete cam;
+	//delete cam;
 	cam = newCamera;
 
 }
