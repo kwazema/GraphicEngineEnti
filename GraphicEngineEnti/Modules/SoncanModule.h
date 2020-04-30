@@ -4,12 +4,14 @@
 #include "../Geometry/Transform.h"
 #include "../Modules/RenderModule.h"
 #include "../Render/Camera/Camera.h"
+#include <math.h>
 
-class JoseModule : public Module
+
+class SoncanModule : public Module
 {
 private:
-	Transform quad1,quad2, quad3, quad4,cubetransform;
-	Camera * cam;
+	Transform quad1, quad2, quad3, quad4, cube1, cube2, cube3;
+	Camera* cam;
 	GLFWwindow* window;
 	glm::vec3 pos;
 	glm::vec3 front = glm::vec3(0, 0, -1);
@@ -20,18 +22,20 @@ private:
 	bool canPress = true;
 	int actualCamera = 0;
 	std::vector<Camera*> cameras;
+	
+
 public:
 
-		virtual void start() override;
-		virtual void stop() override;
-		virtual void renderDebug() override;
-		virtual void update(float elapsed)override;
+	virtual void start() override;
+	virtual void stop() override;
+	virtual void renderDebug() override;
+	virtual void update(float elapsed)override;
 
-		void initCameras();
-		void cameraController();
+	void initCameras();
+	void cameraController();
 
 
-	JoseModule();
-	~JoseModule();
+	SoncanModule();
+	~SoncanModule();
 };
 

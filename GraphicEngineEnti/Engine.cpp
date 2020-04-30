@@ -1,7 +1,8 @@
 #include "precompiledHeader.h"
 #include "Engine.h"
 #include "Modules/RenderModule.h"
-#include "Modules/JoseModule.h"
+//#include "Modules/JoseModule.h"
+#include "Modules/SoncanModule.h"
 
 
 
@@ -81,7 +82,8 @@ void Engine::setModelObjectConstants(const glm::mat4& model, const glm::vec4& co
 
 void Engine::registerAllModules()
 {
-	JoseModule * module = new JoseModule;
+	//JoseModule * module = new JoseModule;
+	SoncanModule * module = new SoncanModule;
 
 	
 	moduleManager.registerModule(module);
